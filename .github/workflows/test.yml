@@ -1,0 +1,29 @@
+name: Django Tests
+
+on:
+  push:
+    branches:
+      - test
+  
+  pull_request:
+    branches:
+      - test
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [ 3.10.5 ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: |
+          docker build -t gcr.io/prowood-development/celery-test .
+      - name: Push
+        run: |
+          docker login -u _json_key -p '{"type": "service_account","project_id": "prowood-development","private_key_id": "825e882378a250d1bbce220b5843dd591689735b","private_key": "${{secrets.REGISTRY_ACCOUNT_PRIVATE_KEY}}","client_email": "registry-key@prowood-development.iam.gserviceaccount.com","client_id": "105328674497871947814","auth_uri": "https://accounts.google.com/o/oauth2/auth","token_uri": "https://oauth2.googleapis.com/token","auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/registry-key%40prowood-development.iam.gserviceaccount.com"}' https://gcr.io
+          docker push gcr.io/prowood-development/celery-test

@@ -1,0 +1,53 @@
+version: '3.6'
+
+
+x-celery:
+  &default-celery
+  image: gcr.io/prowood-development/celery-test
+  container_name: celery
+  restart: always
+  environment:
+    DJANGO_SETTINGS_MODULE: proj.settings.prod
+  command: sh entrypoint.sh
+  labels:
+    com.centurylinklabs.watchtower.enable: true
+
+  depends_on:
+    - redis
+  tty: true
+
+
+services:
+  celery-prod:
+    <<: *default-celery
+    image: gcr.io/prowood-development/celery-prod
+    environment:
+      DJANGO_SETTINGS_MODULE: proj.settings.prod
+      DATABASE_URL: psql://postgres:postgres@db/celery_prod
+
+
+  celery-test:
+    <<: *default-celery
+    image: gcr.io/prowood-development/celery-test
+    environment:
+      DJANGO_SETTINGS_MODULE: proj.settings.test
+      DATABASE_URL: psql://postgres:postgres@db/celery_test
+
+  celery-dev:
+    <<: *default-celery
+    image: gcr.io/prowood-development/celery-dev
+    environment:
+      DJANGO_SETTINGS_MODULE: proj.settings.dev
+
+  redis:
+    image: 'redis'
+    container_name: celery-redis
+    restart: always
+    volumes:
+      - 'celery-redis:/data'
+
+
+volumes:
+  celery-redis:
+
+

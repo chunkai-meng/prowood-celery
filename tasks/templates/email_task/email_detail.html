@@ -1,0 +1,9 @@
+{% extends 'admin/base_site.html' %}
+{% block title %}Email Form{% endblock %}
+{% block content %}
+    <h1>Subject: {{ object.subject }}</h1>
+    <p>From: {{ object.email_from }}</p>
+    <p>To: {{ object.email_to }}</p>
+    <p>Text Content: {{ object.text_content }}</p>
+    <p>HTML Content: {{ object.html_content }}</p>
+{% endblock %}
