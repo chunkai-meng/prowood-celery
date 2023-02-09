@@ -7,6 +7,8 @@ __pycache__/
 # C extensions
 *.so
 
+media/
+
 # Distribution / packaging
 .Python
 build/
@@ -54,7 +56,6 @@ local_settings.py
 
 # celery beat schedule file
 celerybeat-schedule
-
 
 
 # Environments
