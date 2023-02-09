@@ -2,12 +2,7 @@ from .defaults import *
 
 DEBUG = True
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'dev-db.sqlite3'),
-    }
-}
+ALLOWED_HOSTS.extend(["127.0.0.1", "0.0.0.0"])
 
 # Celery settings
 CELERY_BROKER_URL = 'redis://redis:6379/8'

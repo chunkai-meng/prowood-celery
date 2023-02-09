@@ -8,14 +8,12 @@ env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 MEDIA_DIR = BASE_DIR / "media"
 SECRET_KEY = "$s0xz851#y*wo*3y!^%d-%i#8f-w$l^-57(tg7=k^gl6m^q1xh"
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', "http://100.117.69.36:8700", 'https://*.prowood.network']
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "celery",
-    "celery-test",
-    "celery-prod",
-    "127.0.0.1",
+    ".prowood.network",
+    "100.117.69.36"
 ]
 
 INSTALLED_APPS = [
