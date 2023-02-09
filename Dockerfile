@@ -7,8 +7,8 @@ WORKDIR $APP_HOME
 ENV PYTHONUNBUFFERED 1
 
 # Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ./requirements ./requirements
+RUN pip install --no-cache-dir -r .requirements/base.txt
 
 ENV APP_HOME /app
 ENV TZ=Pacific/Auckland
